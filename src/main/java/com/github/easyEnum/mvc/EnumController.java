@@ -1,31 +1,30 @@
-package icu.rhythm.easyenum.mvc;
+package com.github.easyEnum.mvc;
 
-import icu.rhythm.easyenum.core.CodeBaseEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnumHolder;
-import icu.rhythm.easyenum.entity.CodeBaseEnumVo;
-import icu.rhythm.easyenum.example.DemoEnum;
-import icu.rhythm.easyenum.exception.EnumNoFoundException;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import com.github.easyEnum.CodeBaseEnumVo;
+import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
+import com.github.easyEnum.exception.EnumNoFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * @author Rhythm-2019
  * @date 2023/2/19
- * @description
+ * @description 枚举字典接口
  */
 @RestController
 @RequestMapping("/easyEnum")
 public class EnumController {
 
     @Resource
-    private CodeBaseEnumHolder codeBaseEnumHolder;
+    private DefaultCodeBaseEnumManager codeBaseEnumHolder;
 
     @GetMapping("/all")
     public Map<String, List<CodeBaseEnumVo>> getAll() {
@@ -33,8 +32,8 @@ public class EnumController {
         this.codeBaseEnumHolder.getCodeBaseEnumMap()
                 .forEach((k, v) -> {
                     result.put(k.getSimpleName(), v.stream()
-                                                    .map(CodeBaseEnumVo::from)
-                                                    .collect(Collectors.toList()));
+                            .map(CodeBaseEnumVo::from)
+                            .collect(Collectors.toList()));
                 });
         return result;
     }
@@ -55,7 +54,7 @@ public class EnumController {
                 .stream()
                 .filter(clz -> clz.getSimpleName().equals(typeName))
                 .findFirst()
-                .map(clz -> this.codeBaseEnumHolder.get(clz)
+                .map(clz -> this.codeBaseEnumHolder.findEnumConstants(clz)
                         .stream()
                         .map(CodeBaseEnumVo::from)
                         .collect(Collectors.toList()))

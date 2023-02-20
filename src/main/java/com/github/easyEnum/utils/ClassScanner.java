@@ -1,4 +1,4 @@
-package icu.rhythm.easyenum.core;
+package com.github.easyEnum.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
@@ -37,12 +37,14 @@ public class ClassScanner {
         }
         return this.resourcePatternResolver;
     }
+
     public final MetadataReaderFactory getMetadataReaderFactory() {
         if (this.metadataReaderFactory == null) {
             this.metadataReaderFactory = new CachingMetadataReaderFactory();
         }
         return this.metadataReaderFactory;
     }
+
     public final Environment getEnvironment() {
         if (this.environment == null) {
             this.environment = new StandardEnvironment();
@@ -68,25 +70,21 @@ public class ClassScanner {
                     Class<?> clz = Class.forName(metadataReader.getClassMetadata().getClassName());
                     if (filterHandler.test(clz)) {
                         candidates.add(clz);
-                    }
-                    else {
+                    } else {
                         if (traceEnabled) {
                             log.trace("Ignored because not matching any filter: " + resource);
                         }
                     }
-                }
-                catch (FileNotFoundException ex) {
+                } catch (FileNotFoundException ex) {
                     if (traceEnabled) {
                         log.trace("Ignored non-readable " + resource + ": " + ex.getMessage());
                     }
-                }
-                catch (Throwable ex) {
+                } catch (Throwable ex) {
                     throw new BeanDefinitionStoreException(
                             "Failed to read  class: " + resource, ex);
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new BeanDefinitionStoreException("I/O failure during classpath scanning", ex);
         }
         return candidates;

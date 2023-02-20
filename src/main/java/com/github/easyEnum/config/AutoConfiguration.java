@@ -1,10 +1,9 @@
-package icu.rhythm.easyenum.config;
+package com.github.easyEnum.config;
 
 import cn.hutool.core.util.StrUtil;
-import icu.rhythm.easyenum.annotation.EnableEasyEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnumHolder;
-import icu.rhythm.easyenum.core.ClassScanner;
+import com.github.easyEnum.CodeBaseEnum;
+import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
+import com.github.easyEnum.utils.ClassScanner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * @author Rhythm-2019
  * @date 2023/2/19
- * @description
+ * @description 自动装配
  */
 @Slf4j
 @ComponentScan(basePackages = "icu.rhythm.easyenum")
@@ -30,7 +29,7 @@ public class AutoConfiguration implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, BeanNameGenerator importBeanNameGenerator) {
-        register(registry, createCodeBaseEnumBeanDifinition(importingClassMetadata));
+        register(registry, createCodeBaseEnumBeanDefinition(importingClassMetadata));
     }
 
     private void register(BeanDefinitionRegistry registry, RootBeanDefinition beanDefinition) {
@@ -40,7 +39,7 @@ public class AutoConfiguration implements ImportBeanDefinitionRegistrar {
         registry.registerBeanDefinition(StrUtil.lowerFirst(beanDefinition.getBeanClass().getSimpleName()), beanDefinition);
     }
 
-    private RootBeanDefinition createCodeBaseEnumBeanDifinition(AnnotationMetadata importingClassMetadata) {
+    private RootBeanDefinition createCodeBaseEnumBeanDefinition(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> annotationAttributes = importingClassMetadata.getAnnotationAttributes(EnableEasyEnum.class.getName());
         if (annotationAttributes == null) {
             log.error("EnableEasyEnum no found, it is. this is impossible");
@@ -50,12 +49,12 @@ public class AutoConfiguration implements ImportBeanDefinitionRegistrar {
         String[] basePackages = (String[]) annotationAttributes.getOrDefault("basePackages", new String[]{});
         for (String basePackage : basePackages) {
             // 加载所有实现了 CodeBaseEnum 的元组
-            classes.addAll( new ClassScanner().scanClass(basePackage, clz -> clz.isEnum() &&
+            classes.addAll(new ClassScanner().scanClass(basePackage, clz -> clz.isEnum() &&
                     Arrays.asList(clz.getInterfaces()).contains(CodeBaseEnum.class)));
         }
         // 将 CodeBaseEnumHolder 注册到容器中
-        return new RootBeanDefinition(CodeBaseEnumHolder.class, () -> new CodeBaseEnumHolder(
-                classes.stream().map(clz -> (Class<CodeBaseEnum>) clz).collect(Collectors.toSet())
+        return new RootBeanDefinition(DefaultCodeBaseEnumManager.class, () -> new DefaultCodeBaseEnumManager(
+                classes.stream().map(clz -> (Class<? extends CodeBaseEnum>) clz).collect(Collectors.toSet())
         ));
 
     }

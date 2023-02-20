@@ -1,8 +1,8 @@
-package icu.rhythm.easyenum.mvc;
+package com.github.easyEnum.mvc;
 
-import icu.rhythm.easyenum.core.CodeBaseEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnumHolder;
-import icu.rhythm.easyenum.exception.EnumNoFoundException;
+import com.github.easyEnum.CodeBaseEnum;
+import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
+import com.github.easyEnum.exception.EnumNoFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
@@ -23,10 +23,11 @@ import java.util.stream.Collectors;
 public class EnumParamConverter implements ConditionalGenericConverter {
 
     @Resource
-    private CodeBaseEnumHolder codeBaseEnumHolder;
+    private DefaultCodeBaseEnumManager codeBaseEnumHolder;
 
     /**
      * 是否应该选择当前正在考虑的从sourceType到targetType的转换？
+     *
      * @param sourceType the type descriptor of the field we are converting from
      * @param targetType the type descriptor of the field we are converting to
      * @return 是否进行转换，true 则执行 convert 方法
@@ -38,6 +39,7 @@ public class EnumParamConverter implements ConditionalGenericConverter {
 
     /**
      * 返回此转换器可以在其间转换的源类型和目标类型
+     *
      * @return 继承了 CodeBaseEnum 的枚举
      */
     @Override
@@ -50,7 +52,8 @@ public class EnumParamConverter implements ConditionalGenericConverter {
 
     /**
      * 参数转换
-     * @param source the source object to convert (may be {@code null})
+     *
+     * @param source     the source object to convert (may be {@code null})
      * @param sourceType the type descriptor of the field we are converting from
      * @param targetType the type descriptor of the field we are converting to
      * @return 转换后的结果
@@ -58,7 +61,7 @@ public class EnumParamConverter implements ConditionalGenericConverter {
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         int code = Integer.parseInt(String.valueOf(source));
-        CodeBaseEnum codeBaseEnum = this.codeBaseEnumHolder.getEnumByCode(targetType.getType(), code);
+        CodeBaseEnum codeBaseEnum = this.codeBaseEnumHolder.findEnumConstantByCode((Class<? extends CodeBaseEnum>) targetType.getType(), code);
         if (codeBaseEnum == null) {
             throw new EnumNoFoundException();
         }

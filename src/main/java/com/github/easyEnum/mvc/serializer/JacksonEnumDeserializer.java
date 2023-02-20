@@ -1,11 +1,14 @@
-package icu.rhythm.easyenum.mvc.serializer;
+package com.github.easyEnum.mvc.serializer;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.BeanProperty;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import icu.rhythm.easyenum.core.CodeBaseEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnumHolder;
+import com.github.easyEnum.CodeBaseEnum;
+import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
@@ -15,26 +18,26 @@ import java.util.Arrays;
  * @author Rhythm-
  * @date 2023/2/20
  * @description Jackson 反序列化处理
- *
+ * <p>
  * 参考：
- *  - https://www.cnblogs.com/kelelipeng/p/13972138.html
- *  - https://www.baeldung.com/jackson-deserialization
+ * - https://www.cnblogs.com/kelelipeng/p/13972138.html
+ * - https://www.baeldung.com/jackson-deserialization
  */
 @JsonComponent
 public class JacksonEnumDeserializer
         extends JsonDeserializer<Enum<? extends CodeBaseEnum>>
         implements ContextualDeserializer {
 
-    private CodeBaseEnumHolder codeBaseEnumHolder;
+    private DefaultCodeBaseEnumManager codeBaseEnumHolder;
 
     private Class<?> rawClass;
 
-    public JacksonEnumDeserializer(CodeBaseEnumHolder codeBaseEnumHolder) {
-        this.codeBaseEnumHolder = codeBaseEnumHolder;
+    public JacksonEnumDeserializer(DefaultCodeBaseEnumManager defluatCodeBaseEnumManager) {
+        this.codeBaseEnumHolder = defluatCodeBaseEnumManager;
     }
 
 
-    public void setCodeBaseEnumHolder(CodeBaseEnumHolder codeBaseEnumHolder) {
+    public void setCodeBaseEnumHolder(DefaultCodeBaseEnumManager codeBaseEnumHolder) {
         this.codeBaseEnumHolder = codeBaseEnumHolder;
     }
 
@@ -50,9 +53,9 @@ public class JacksonEnumDeserializer
         }
         int code = Integer.parseInt(p.getValueAsString());
 
-        return (Enum<? extends CodeBaseEnum>) this.codeBaseEnumHolder.get((Class<? super CodeBaseEnum>) this.rawClass)
+        return (Enum<? extends CodeBaseEnum>) this.codeBaseEnumHolder.findEnumConstants((Class<? extends CodeBaseEnum>) this.rawClass)
                 .stream()
-                .filter(e -> e.getCode() == code)
+                .filter(e -> e.match(code))
                 .findFirst()
                 .orElse(null);
     }

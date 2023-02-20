@@ -1,6 +1,5 @@
-package icu.rhythm.easyenum.entity;
+package com.github.easyEnum;
 
-import icu.rhythm.easyenum.core.CodeBaseEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

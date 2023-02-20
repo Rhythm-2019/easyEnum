@@ -1,6 +1,5 @@
-package icu.rhythm.easyenum.annotation;
+package com.github.easyEnum.config;
 
-import icu.rhythm.easyenum.config.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -17,5 +16,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(AutoConfiguration.class)
 public @interface EnableEasyEnum {
+    /**
+     * @return 枚举类所在的包
+     */
     String[] basePackages();
 }

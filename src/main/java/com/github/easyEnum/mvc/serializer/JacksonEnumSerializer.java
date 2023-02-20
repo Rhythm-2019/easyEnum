@@ -1,26 +1,19 @@
-package icu.rhythm.easyenum.mvc.serializer;
+package com.github.easyEnum.mvc.serializer;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import icu.rhythm.easyenum.core.CodeBaseEnum;
-import icu.rhythm.easyenum.core.CodeBaseEnumHolder;
-import icu.rhythm.easyenum.entity.CodeBaseEnumVo;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.github.easyEnum.CodeBaseEnum;
+import com.github.easyEnum.CodeBaseEnumVo;
 import org.springframework.boot.jackson.JsonComponent;
 
-import javax.annotation.Resource;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
 
 /**
  * @author Rhythm-
  * @date 2023/2/20
  * @description Jackson 反序列化处理
- *
+ * <p>
  * 参考：https://www.cnblogs.com/kelelipeng/p/13972138.html
  */
 @JsonComponent
