@@ -15,16 +15,10 @@ public interface CodeBaseEnum {
     int getCode();
 
     /**
-     * 获取 Name
-     * @return name
-     */
-    String getName();
-
-    /**
      * 获取描述信息
      * @return 描述信息
      */
     default String getDescription() {
-        throw new NotImplementedException();
+        return null;
     }
 }

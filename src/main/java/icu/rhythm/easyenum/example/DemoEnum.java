@@ -9,25 +9,25 @@ import icu.rhythm.easyenum.core.CodeBaseEnum;
  */
 public enum DemoEnum implements CodeBaseEnum {
     START(0, "开始"),
-    STOP(1, "暂停"),
-    RUNNING(2, "运行中"),
+    STOP(10, "暂停"),
+    RUNNING(100, "运行中"),
     ;
 
     private int code;
-    private String name;
+    private String desc;
 
-    DemoEnum(int code, String name) {
+    DemoEnum(int code, String desc) {
         this.code = code;
-        this.name = name;
+        this.desc = desc;
     }
 
     @Override
     public int getCode() {
-        return 0;
+        return this.code;
     }
 
     @Override
-    public String getName() {
-        return null;
+    public String getDescription() {
+        return this.desc;
     }
 }
