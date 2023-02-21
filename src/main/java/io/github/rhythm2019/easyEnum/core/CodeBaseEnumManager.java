@@ -1,6 +1,6 @@
-package com.github.easyEnum.core;
+package io.github.rhythm2019.easyEnum.core;
 
-import com.github.easyEnum.CodeBaseEnum;
+import io.github.rhythm2019.easyEnum.CodeBaseEnum;
 
 import java.util.List;
 

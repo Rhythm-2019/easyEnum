@@ -1,4 +1,4 @@
-package com.github.easyEnum.config;
+package io.github.rhythm2019.easyEnum.config;
 
 import org.springframework.context.annotation.Import;
 

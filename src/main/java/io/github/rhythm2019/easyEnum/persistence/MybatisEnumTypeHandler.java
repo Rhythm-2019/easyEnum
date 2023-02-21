@@ -1,6 +1,6 @@
-package com.github.easyEnum.persistence;
+package io.github.rhythm2019.easyEnum.persistence;
 
-import com.github.easyEnum.CodeBaseEnum;
+import io.github.rhythm2019.easyEnum.CodeBaseEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

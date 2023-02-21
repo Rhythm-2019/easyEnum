@@ -1,9 +1,9 @@
-package com.github.easyEnum.config;
+package io.github.rhythm2019.easyEnum.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.easyEnum.CodeBaseEnum;
-import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
-import com.github.easyEnum.utils.ClassScanner;
+import io.github.rhythm2019.easyEnum.CodeBaseEnum;
+import io.github.rhythm2019.easyEnum.core.DefaultCodeBaseEnumManager;
+import io.github.rhythm2019.easyEnum.utils.ClassScanner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;

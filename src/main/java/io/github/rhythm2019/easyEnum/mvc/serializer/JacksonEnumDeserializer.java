@@ -1,4 +1,4 @@
-package com.github.easyEnum.mvc.serializer;
+package io.github.rhythm2019.easyEnum.mvc.serializer;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import com.github.easyEnum.CodeBaseEnum;
-import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
+import io.github.rhythm2019.easyEnum.CodeBaseEnum;
+import io.github.rhythm2019.easyEnum.core.DefaultCodeBaseEnumManager;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;

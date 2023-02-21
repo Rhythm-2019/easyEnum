@@ -1,4 +1,4 @@
-package com.github.easyEnum;
+package io.github.rhythm2019.easyEnum;
 
 /**
  * @author Rhythm-2019

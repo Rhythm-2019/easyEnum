@@ -1,4 +1,4 @@
-package com.github.easyEnum;
+package io.github.rhythm2019.easyEnum;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

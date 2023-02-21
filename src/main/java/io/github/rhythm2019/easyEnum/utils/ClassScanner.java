@@ -1,4 +1,4 @@
-package com.github.easyEnum.utils;
+package io.github.rhythm2019.easyEnum.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanDefinitionStoreException;

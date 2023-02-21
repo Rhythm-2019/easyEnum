@@ -1,4 +1,4 @@
-package com.github.easyEnum.exception;
+package io.github.rhythm2019.easyEnum.exception;
 
 /**
  * @author Rhythm-2019

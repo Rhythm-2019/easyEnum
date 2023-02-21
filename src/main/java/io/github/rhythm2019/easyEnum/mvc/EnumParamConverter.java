@@ -1,8 +1,8 @@
-package com.github.easyEnum.mvc;
+package io.github.rhythm2019.easyEnum.mvc;
 
-import com.github.easyEnum.CodeBaseEnum;
-import com.github.easyEnum.core.DefaultCodeBaseEnumManager;
-import com.github.easyEnum.exception.EnumNoFoundException;
+import io.github.rhythm2019.easyEnum.CodeBaseEnum;
+import io.github.rhythm2019.easyEnum.core.DefaultCodeBaseEnumManager;
+import io.github.rhythm2019.easyEnum.exception.EnumNoFoundException;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
