@@ -24,7 +24,7 @@ public interface CodeBaseEnum {
 
     /**
      * 检测是否匹配
-     *
+     * @param code code
      * @return 是否匹配
      */
     default boolean match(int code) {
